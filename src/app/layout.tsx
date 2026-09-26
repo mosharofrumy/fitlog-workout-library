@@ -37,7 +37,7 @@ export default function RootLayout({
         <Navbar />
         {children}
         <Footer />
-        <ToastContainer position="top-right" autoClose={2000} theme="dark" />
+        <ToastContainer position="bottom-right" autoClose={2000} theme="dark" />
       </body>
     </html>
   );
