@@ -84,7 +84,7 @@ export default function Navbar() {
                       : "text-gray-300 hover:text-white"
                   }
                 >
-                  Workouts
+                  Workout
                 </Link>
               </li>
               <li>
@@ -121,7 +121,7 @@ export default function Navbar() {
                 : "text-gray-300 hover:bg-[#1a1d24] hover:text-white"
             }`}
           >
-            Workouts
+            Workout
           </Link>
 
           <Link

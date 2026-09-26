@@ -167,12 +167,12 @@ function SpecRow({
         !last ? "border-b border-[#292c33]" : ""
       }`}
     >
-      {/* Label */}
+     
       <span className="font-oswald text-[11px] font-normal uppercase leading-none text-white">
         {label}
       </span>
 
-      {/* Value */}
+     
       <span className="text-[13px] font-normal leading-none text-white">
         {value}
       </span>

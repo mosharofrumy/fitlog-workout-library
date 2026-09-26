@@ -75,7 +75,6 @@ export default function MyPlanPage() {
     );
   }, [currentList]);
 
-
   const handleTabChange = (tab: "today" | "saved") => {
     router.push(`/my-plan?tab=${tab}`, { scroll: false });
   };
