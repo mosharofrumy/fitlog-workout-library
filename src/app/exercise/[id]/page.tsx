@@ -2,13 +2,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import {
-  Bookmark,
-  PlusCircle,
   X,
   ChevronLeft,
   ChevronRight,
 } from "lucide-react";
 import { getWorkoutById, getWorkouts } from "@/api/workout";
+import WorkoutActions from "@/components/actions/WorkoutAction";
 
 interface ExercisePageProps {
   params: Promise<{ id: string }>;
@@ -19,7 +18,6 @@ export default async function ExerciseDetailPage({
 }: ExercisePageProps) {
   const { id } = await params;
 
-  // Current workout + complete workout list
   const [workout, workouts] = await Promise.all([
     getWorkoutById(id),
     getWorkouts(),
@@ -38,18 +36,17 @@ export default async function ExerciseDetailPage({
     currentIndex < workouts.length - 1 ? workouts[currentIndex + 1] : null;
 
   return (
-    <main className="min-h-screen bg-[#090a0f] px-5 py-[22px] text-white">
+    <main className="min-h-screen bg-[#090a0f] px-5 py-6 text-white">
       <div className="relative mx-auto w-full max-w-[925px]">
-        {/* ================= CLOSE BUTTON ================= */}
+       
         <Link
           href="/"
           aria-label="Close"
-          className="absolute -right-[8px] -top-[10px] z-30 flex h-[32px] w-[32px] items-center justify-center rounded-full border border-[#343740] bg-[#15171d] text-[#d5d7dc] transition-all hover:border-[#555963] hover:bg-[#20232b] hover:text-white"
+          className="absolute -right-[8px] -top-[10px] z-30 flex h-[32px] w-[32px] items-center justify-center rounded-full border border-[#343740] bg-[#15171d] text-white transition-all hover:border-[#555963] hover:bg-[#20232b] hover:text-white"
         >
           <X className="h-[17px] w-[17px]" />
         </Link>
 
-        {/* ================= PREVIOUS BUTTON ================= */}
         {prevWorkout && (
           <Link
             href={`/exercise/${prevWorkout.id}`}
@@ -60,7 +57,6 @@ export default async function ExerciseDetailPage({
           </Link>
         )}
 
-        {/* ================= NEXT BUTTON ================= */}
         {nextWorkout && (
           <Link
             href={`/exercise/${nextWorkout.id}`}
@@ -71,9 +67,8 @@ export default async function ExerciseDetailPage({
           </Link>
         )}
 
-        {/* ================= EQUAL WIDTH COLUMNS ================= */}
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-[34px]">
-          {/* ================= LEFT IMAGE ================= */}
+         
           <div className="w-full">
             <div className="relative h-[670px] w-full overflow-hidden rounded-[14px] bg-[#1a1c21]">
               <Image
@@ -87,21 +82,21 @@ export default async function ExerciseDetailPage({
             </div>
           </div>
 
-          {/* ================= RIGHT CONTENT ================= */}
+       
           <div className="flex h-[670px] w-full flex-col justify-between">
-            {/* ---------- TOP CONTENT ---------- */}
+       
             <div>
-              {/* Title */}
-              <h1 className="font-oswald text-[32px] font-normal uppercase leading-[38px] tracking-[0.2px] text-[#f4f4f5]">
+             
+              <h1 className="font-oswald text-[32px] font-normal uppercase leading-[38px] tracking-[0.2px] text-white">
                 {workout.name}
               </h1>
 
-              {/* Description */}
+         
               <p className="mt-[8px] text-[13px] leading-[19px] text-[#b1b3bb]">
                 {workout.description}
               </p>
 
-              {/* Muscle Tags */}
+     
               <div className="mt-[13px] flex flex-wrap gap-[7px]">
                 {workout.muscleGroups?.map((muscle) => (
                   <span
@@ -113,7 +108,6 @@ export default async function ExerciseDetailPage({
                 ))}
               </div>
 
-              {/* ---------- SPECIFICATIONS ---------- */}
               <div className="mt-[19px] overflow-hidden rounded-[14px] border border-[#292c33] bg-[#1a1c22]">
                 <SpecRow label="EQUIPMENT" value={workout.equipment} />
                 <SpecRow label="DIFFICULTY" value={workout.difficulty} />
@@ -131,13 +125,13 @@ export default async function ExerciseDetailPage({
                 />
               </div>
 
-              {/* ---------- INSTRUCTIONS ---------- */}
+           
               <section className="mt-[27px]">
-                <h2 className="font-oswald text-[21px] font-normal uppercase leading-[26px] tracking-[0.2px] text-[#f4f4f5]">
+                <h2 className="font-oswald text-[21px] font-normal uppercase leading-[26px] tracking-[0.2px] text-white">
                   INSTRUCTIONS
                 </h2>
 
-                <ol className="mt-[11px] space-y-[11px] text-[13px] leading-[18px] text-[#e2e3e7]">
+                <ol className="mt-[11px] space-y-[10px] text-[13px] leading-[18px] text-white">
                   {workout.instructions?.map((step, index) => (
                     <li key={index} className="flex items-start gap-[7px]">
                       <span className="shrink-0 font-medium text-white">
@@ -150,26 +144,7 @@ export default async function ExerciseDetailPage({
               </section>
             </div>
 
-            {/* ---------- ACTION BUTTONS ---------- */}
-            <div className="flex items-center gap-2.5 pt-5">
-              {/* Add to Plan Button */}
-              <button
-                type="button"
-                className="flex h-[34px] cursor-pointer items-center gap-[6px] rounded-full bg-[#ccff00] px-[13px] text-[11px] font-medium text-black transition-colors hover:bg-[#b9eb00]"
-              >
-                <PlusCircle className="h-[14px] w-[14px]" />
-                <span>Add to today&apos;s plan</span>
-              </button>
-
-              {/* Save Button */}
-              <button
-                type="button"
-                className="flex h-[34px] cursor-pointer items-center gap-[6px] rounded-full border border-[#d9dce2] bg-transparent px-[13px] text-[11px] font-medium text-white transition-colors hover:bg-[#181b21]"
-              >
-                <Bookmark className="h-[13px] w-[13px]" />
-                <span>Save for later</span>
-              </button>
-            </div>
+            <WorkoutActions workout={workout} />
           </div>
         </div>
       </div>
@@ -193,12 +168,12 @@ function SpecRow({
       }`}
     >
       {/* Label */}
-      <span className="font-oswald text-[11px] font-normal uppercase leading-none text-[#dce0e8]">
+      <span className="font-oswald text-[11px] font-normal uppercase leading-none text-white">
         {label}
       </span>
 
       {/* Value */}
-      <span className="text-[13px] font-normal leading-none text-[#f0f1f5]">
+      <span className="text-[13px] font-normal leading-none text-white">
         {value}
       </span>
     </div>

@@ -3,6 +3,8 @@ import { Oswald, Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/shared/Navbar";
 import Footer from "@/components/shared/Footer";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const oswald = Oswald({
   subsets: ["latin"],
@@ -35,6 +37,7 @@ export default function RootLayout({
         <Navbar />
         {children}
         <Footer />
+        <ToastContainer position="top-right" autoClose={2000} theme="dark" />
       </body>
     </html>
   );

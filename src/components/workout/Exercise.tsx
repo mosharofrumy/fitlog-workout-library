@@ -18,7 +18,7 @@ export default function Excercise({
           The Library
         </h1>
 
-        <p className="mt-3  text-gray-600">
+        <p className="mt-3 text-gray-600">
           Twelve lifts covering every major muscle group.
         </p>
       </div>
